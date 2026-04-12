@@ -43,6 +43,13 @@ export default function PatientDashboard() {
   const uid = profile?.uid || qrData?.uid || 'MID-XXXXXXXX';
   const patientName = profile ? `${profile.firstName} ${profile.lastName}` : user?.email;
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning 🌅';
+    if (hour < 17) return 'Good afternoon ☀️';
+    return 'Good evening 🌙';
+  };
+
   return (
     <PatientLayout title="Dashboard">
       {/* Welcome Banner */}
@@ -50,7 +57,7 @@ export default function PatientDashboard() {
         <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(0,180,160,0.1)' }} />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
           <div>
-            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, marginBottom: 4 }}>Good morning 👋</p>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, marginBottom: 4 }}>{getGreeting()}</p>
             <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 24, color: 'white', marginBottom: 8 }}>{patientName}</h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(0,180,160,0.2)', borderRadius: 8, padding: '6px 14px', display: 'inline-flex' }}>
               <Maximize size={16} color="var(--teal)" />
