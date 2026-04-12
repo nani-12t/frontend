@@ -1,7 +1,17 @@
 import axios from 'axios';
 
+// Ensure API URL consistently ends with /api even if configured without it in Vercel
+const getBaseURL = () => {
+  let url = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+  url = url.replace(/\/$/, ''); // Remove trailing slash
+  if (!url.endsWith('/api')) {
+    url = `${url}/api`;
+  }
+  return url;
+};
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || '/api',
+  baseURL: getBaseURL(),
   headers: { 'Content-Type': 'application/json' }
 });
 
