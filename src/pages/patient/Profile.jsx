@@ -201,7 +201,10 @@ export default function PatientProfile() {
           emergencyContactRelation: data.emergency?.emergencyContactRelation || '',
           aadhaarNumber: data.emergency?.aadhaarNumber || '',
         });
-      } catch (e) {}
+      } catch (e) {
+        console.warn('⚠️ No profile found for this user.');
+        setPatient({}); // Set to empty object to stop 'Loading...' state
+      }
     };
     load();
   }, []);
