@@ -178,7 +178,6 @@ export default function PatientHistory() {
   );
 
   const [viewingDoc, setViewingDoc] = useState(null);
-  const DUMMY_REPORT = 'file:///C:/Users/HP/.gemini/antigravity/brain/143e89e4-16f8-4ad3-9f0c-c35ba0c2b38c/medical_report_dummy_1775983530455.png';
 
   const handleDownload = (doc) => {
     // Create a dummy blob to simulate a download
@@ -285,12 +284,50 @@ export default function PatientHistory() {
                 <X size={20} />
               </button>
             </div>
-            <div style={{ flex: 1, overflowY: 'auto', background: '#f9fafb', padding: 20, display: 'flex', justifyContent: 'center' }}>
-              <img 
-                src={DUMMY_REPORT} 
-                alt="Medical Report" 
-                style={{ maxWidth: '100%', borderRadius: 8, boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} 
-              />
+            <div style={{ flex: 1, overflowY: 'auto', background: '#f9fafb', padding: '32px 40px', display: 'flex', justifyContent: 'center' }}>
+              <div style={{
+                background: '#fff', width: '100%', maxWidth: 600, padding: 48, borderRadius: 4, 
+                boxShadow: '0 2px 10px rgba(0,0,0,0.05)', fontFamily: 'serif', border: '1px solid #e5e7eb'
+              }}>
+                <div style={{ textAlign: 'center', borderBottom: '2px solid #0d9488', paddingBottom: 24, marginBottom: 32 }}>
+                  <h1 style={{ fontSize: 24, fontWeight: 700, color: '#0d9488', marginBottom: 4 }}>MediID Medical Report</h1>
+                  <p style={{ fontSize: 13, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Authenticated Digital Health Record</p>
+                </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '16px 24px', fontSize: 15, color: '#374151' }}>
+                  <span style={{ fontWeight: 600, color: '#9ca3af' }}>Document:</span>
+                  <span style={{ fontWeight: 700 }}>{viewingDoc.title}</span>
+                  
+                  <span style={{ fontWeight: 600, color: '#9ca3af' }}>Category:</span>
+                  <span style={{ textTransform: 'capitalize' }}>{viewingDoc.type?.replace('_', ' ')}</span>
+                  
+                  <span style={{ fontWeight: 600, color: '#9ca3af' }}>Hospital:</span>
+                  <span>{viewingDoc.hospitalName || 'MediID Central Hospital'}</span>
+                  
+                  <span style={{ fontWeight: 600, color: '#9ca3af' }}>Doctor:</span>
+                  <span>Dr. {viewingDoc.doctorName || 'Assigned Consultant'}</span>
+                  
+                  <span style={{ fontWeight: 600, color: '#9ca3af' }}>Date:</span>
+                  <span>{formatDate(viewingDoc.uploadedAt)}</span>
+                </div>
+
+                <div style={{ marginTop: 40, paddingTop: 32, borderTop: '1px solid #f3f4f6' }}>
+                  <h4 style={{ fontSize: 13, fontWeight: 700, color: '#9ca3af', marginBottom: 12, textTransform: 'uppercase' }}>Clinical Notes</h4>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: '#4b5563', fontStyle: 'italic' }}>
+                    {viewingDoc.notes || 'This is an automated digital summary of the patient medical record as provided by the healthcare institution. For detailed diagnostics, please refer to the original physical copy or contact the hospital directly.'}
+                  </p>
+                </div>
+
+                <div style={{ marginTop: 64, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                  <div style={{ fontSize: 11, color: '#9ca3af' }}>
+                    ID: {viewingDoc._id?.slice(-12).toUpperCase() || 'M-ID-SYNC-77'}
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ width: 100, height: 40, borderBottom: '1px solid #9ca3af', marginBottom: 4 }}></div>
+                    <p style={{ fontSize: 11, fontWeight: 600, color: '#9ca3af' }}>DIGITAL SIGNATURE</p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div style={{ padding: '16px 24px', borderTop: '1px solid #eee', display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
               <button className="btn btn-outline" onClick={() => setViewingDoc(null)}>Close</button>
