@@ -32,10 +32,17 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
   res => res,
   err => {
-    if (err.response?.status === 401) {
+    const isAuthRequest = err.config?.url?.includes('/auth/login') || err.config?.url?.includes('/auth/register');
+    
+    if (err.response?.status === 401 && !isAuthRequest) {
+      console.warn('🔑 Session expired or invalid token. Clearing storage.');
       localStorage.removeItem('mediid_token');
       localStorage.removeItem('mediid_user');
-      window.location.href = '/login';
+      
+      // Only redirect if we aren't already trying to login
+      if (window.location.pathname !== '/login' && window.location.pathname !== '/') {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(err);
   }
