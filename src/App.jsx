@@ -37,19 +37,6 @@ const ProtectedRoute = ({ children, roles }) => {
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      // Check if it's a page refresh
-      const navigation = performance.getEntriesByType('navigation')[0];
-      if (navigation && navigation.type === 'reload') {
-        // Redirect to landing on refresh
-        window.location.href = '/';
-      }
-    }
-  }, [loading, user, location]);
-
   if (loading) return null;
   if (user) return <Navigate to={'/dashboard'} replace />;
   return children;
