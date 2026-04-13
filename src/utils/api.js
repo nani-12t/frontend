@@ -160,4 +160,33 @@ export const ocrAPI = {
   })
 };
 
-export default api;
+// Marketplace
+export const marketplaceAPI = {
+  // Buyer profile
+  getBuyerProfile:    ()       => api.get('/marketplace/buyer/profile'),
+  updateBuyerProfile: (data)   => api.put('/marketplace/buyer/profile', data),
+
+  // Requirements
+  createRequirement:  (data)   => api.post('/marketplace/requirements', data),
+  getAllRequirements:  ()       => api.get('/marketplace/requirements'),
+  getMyRequirements:  ()       => api.get('/marketplace/requirements/my'),
+  updateRequirement:  (id, d)  => api.put(`/marketplace/requirements/${id}`, d),
+  deleteRequirement:  (id)     => api.delete(`/marketplace/requirements/${id}`),
+
+  // Submissions
+  submitDocs:         (data)   => api.post('/marketplace/submissions', data),
+  submitDocuments:    (formData) => api.post('/marketplace/submissions', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  getMySubmissions:   ()       => api.get('/marketplace/submissions/my'),
+  getRequirementSubs: (id)     => api.get(`/marketplace/submissions/requirement/${id}`),
+  updateSubStatus:    (id, d)  => api.put(`/marketplace/submissions/${id}/status`, d),
+
+  // Messaging
+  sendMessage:        (data)   => api.post('/marketplace/messages', data),
+  getConversations:   ()       => api.get('/marketplace/messages/conversations'),
+  getMessages:        (uid)    => api.get(`/marketplace/messages/${uid}`),
+  getUnreadCount:     ()       => api.get('/marketplace/messages/unread/count'),
+};
+
+export default api;

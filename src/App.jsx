@@ -17,6 +17,13 @@ import History from './pages/patient/History';
 import DocumentScanner from './pages/patient/DocumentScanner';
 import Bills from './pages/patient/Bills';
 import ConfirmAppointment from './pages/patient/ConfirmAppointment';
+import PatientMarketplace from './pages/patient/Marketplace';
+
+import ChatPortal from './pages/common/ChatPortal';
+
+import BuyerDashboard from './pages/buyer/Dashboard';
+import PostRequirement from './pages/buyer/PostRequirement';
+import ViewSubmissions from './pages/buyer/ViewSubmissions';
 
 import HospitalDashboard from './pages/hospital/Dashboard';
 import HospitalDoctors from './pages/hospital/Doctors';
@@ -38,7 +45,11 @@ const ProtectedRoute = ({ children, roles }) => {
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (user) return <Navigate to={'/dashboard'} replace />;
+  if (user) {
+    if (user.role === 'buyer') return <Navigate to="/buyer/dashboard" replace />;
+    if (user.role === 'hospital_admin') return <Navigate to="/hospital" replace />;
+    return <Navigate to="/dashboard" replace />;
+  }
   return children;
 };
 
@@ -59,6 +70,16 @@ function AppRoutes() {
       <Route path="/history"       element={<ProtectedRoute roles={['patient']}><History /></ProtectedRoute>} />
       <Route path="/scanner"       element={<ProtectedRoute roles={['patient']}><DocumentScanner /></ProtectedRoute>} />
       <Route path="/bills"         element={<ProtectedRoute roles={['patient']}><Bills /></ProtectedRoute>} />
+      <Route path="/marketplace"   element={<ProtectedRoute roles={['patient']}><PatientMarketplace /></ProtectedRoute>} />
+
+      {/* Buyer */}
+      <Route path="/buyer/dashboard"        element={<ProtectedRoute roles={['buyer']}><BuyerDashboard /></ProtectedRoute>} />
+      <Route path="/buyer/post-requirement" element={<ProtectedRoute roles={['buyer']}><PostRequirement /></ProtectedRoute>} />
+      <Route path="/buyer/chat"             element={<ProtectedRoute roles={['buyer']}><ChatPortal /></ProtectedRoute>} />
+      <Route path="/buyer/submissions/:id"  element={<ProtectedRoute roles={['buyer']}><ViewSubmissions /></ProtectedRoute>} />
+      
+      {/* Patient Chat */}
+      <Route path="/messages"               element={<ProtectedRoute roles={['patient', 'buyer']}><ChatPortal /></ProtectedRoute>} />
 
       {/* Hospital Admin */}
       {/* <Route path="/hospital"                element={<ProtectedRoute roles={['hospital_admin']}><HospitalDashboard /></ProtectedRoute>} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Maximize, Search, Heart, Star, ArrowRight, CheckCircle, Activity, FileText, Users } from 'lucide-react';
+import { Shield, Maximize, Search, Heart, ArrowRight, Activity } from 'lucide-react';
 
 const features = [
   { icon: Maximize, title: 'Digital Medical ID', desc: 'One QR code carries your entire medical history, accessible anywhere instantly.', color: '#00b4a0' },
@@ -44,7 +44,6 @@ export default function Landing() {
 
       {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, var(--navy) 0%, #1a3a5c 60%, #0e4a4a 100%)', padding: '100px 0 80px', position: 'relative', overflow: 'hidden' }}>
-        {/* Decorative circles */}
         <div style={{ position: 'absolute', top: -80, right: -80, width: 400, height: 400, borderRadius: '50%', background: 'rgba(0,180,160,0.08)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: -60, left: -60, width: 300, height: 300, borderRadius: '50%', background: 'rgba(56,189,248,0.08)', pointerEvents: 'none' }} />
 
@@ -63,12 +62,8 @@ export default function Landing() {
             <Link to="/register" className="btn btn-primary btn-lg">
               Create My Medical ID <ArrowRight size={18} />
             </Link>
-            {/* <Link to="/register?role=hospital_admin" className="btn btn-lg btn-outline" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-              Hospital Admin Login
-            </Link> */}
           </div>
 
-          {/* Mini QR card preview */}
           <div style={{ marginTop: 60, display: 'flex', justifyContent: 'center' }}>
             <div style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: '20px 28px', display: 'flex', alignItems: 'center', gap: 20 }}>
               <div style={{ width: 80, height: 80, background: 'white', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -144,8 +139,8 @@ export default function Landing() {
           <h2 style={{ fontSize: 36, fontFamily: 'var(--font-display)', fontWeight: 700, color: 'white', marginBottom: 12 }}>Ready to Go Digital?</h2>
           <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 16, marginBottom: 32 }}>Join millions of patients and hospitals on MediID</p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/register" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Patient Registration</Link>
-            {/* <Link to="/register?role=hospital_admin" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Register Hospital</Link> */}
+            <Link to="/register?role=patient" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Patient Registration</Link>
+            <Link to="/register?role=buyer" className="btn btn-lg" style={{ background: 'rgba(255,100,150,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Researcher Registration</Link>
           </div>
         </div>
       </section>
